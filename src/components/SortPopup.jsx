@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
-export const SortPopup = ({ items }) => {
+export const SortPopup = React.memo(function SortPopup({ items }){
   const [visiblePopup, setVisiblePopup] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
-  const activeLable = items[activeItem];
+  const activeLable = items[activeItem].name;
 
   const sortRef = useRef(); // сохранение ссылки на дом-элемент
 
@@ -51,13 +51,13 @@ export const SortPopup = ({ items }) => {
         <div className="sort__popup">
           <ul>
             {items &&
-              items.map((name, index) => (
+              items.map((obj, index) => (
                 <li
                   className={activeItem === index ? "active" : ""}
                   onClick={() => onSelectItem(index)}
-                  key={`${name}_${index}`}
+                  key={`${obj.type}_${index}`}
                 >
-                  {name}
+                  {obj.name}
                 </li>
               ))}
           </ul>
@@ -65,4 +65,4 @@ export const SortPopup = ({ items }) => {
       )}
     </div>
   );
-};
+})
