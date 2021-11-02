@@ -2,8 +2,12 @@ const SET_SORT_BY = "SET_SORT_BY";
 const SET_CATEGORY = "SET_CATEGORY";
 
 const initialState = {
-  sortBy: "popular",
-  category: 0, // инедкс значения
+  sortBy: {
+    type: 'popular',
+    order: 'desc'
+  },
+  category: null, // инедкс значения (все)
+  
 };
 
 export const filtersReducer = (state = initialState, action) => {
@@ -23,7 +27,7 @@ export const filtersReducer = (state = initialState, action) => {
   }
 };
 
-export const setSortByAC = (name) => ({ type: SET_SORT_BY, payload: name });
+export const setSortByAC = ({type, order}) => ({ type: SET_SORT_BY, payload: {type, order} });
 
 export const setCategoryAC = (catIndex) => ({
   type: SET_CATEGORY,

@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import { Button } from "./Button";
 
-export const PizzaBlock = ({ name, imageUrl, price, types, sizes }) => {
-  const [activeType, setActiveType] = useState(types[0]);
-  const [activeSize, setActiveSize] = useState(sizes[0]);
+export const PizzaBlock = ({
+  id,
+  name,
+  imageUrl,
+  price,
+  types,
+  sizes,
+  onClickAddPizza,
+  addedCount
+}) => {
   const availableTypes = ["тонкое", "традиционное"];
   const availableSizes = [26, 30, 40];
+
+  const [activeType, setActiveType] = useState(types[0]);
+  const [activeSize, setActiveSize] = useState(0);
 
   const onSelectType = (index) => {
     setActiveType(index);
@@ -14,6 +25,18 @@ export const PizzaBlock = ({ name, imageUrl, price, types, sizes }) => {
 
   const onSelectSize = (index) => {
     setActiveSize(index);
+  };
+
+  const onAddPizza = () => {
+    const obj = {
+      id,
+      name,
+      imageUrl,
+      price,
+      size: availableSizes[activeSize],
+      type: availableTypes[activeType]
+    };
+    onClickAddPizza(obj);
   };
 
   return (
@@ -52,7 +75,7 @@ export const PizzaBlock = ({ name, imageUrl, price, types, sizes }) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">{price} ₽</div>
-        <div className="button button--outline button--add">
+        <Button className="button--add" outline onClick={onAddPizza}>
           <svg
             width="12"
             height="12"
@@ -66,8 +89,8 @@ export const PizzaBlock = ({ name, imageUrl, price, types, sizes }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
-        </div>
+          {addedCount && <i>{addedCount}</i>}
+        </Button>
       </div>
     </div>
   );
@@ -79,10 +102,13 @@ PizzaBlock.propTypes = {
   price: PropTypes.number.isRequired,
   types: PropTypes.arrayOf(PropTypes.number).isRequired,
   sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  onClickAddPizza: PropTypes.func,
+  addedCount: PropTypes.number,
 };
 
 PizzaBlock.defaultProps = {
-  imageUrl: "https://dodopizza.azureedge.net/static/Img/Products/f035c7f46c0844069722f2bb3ee9f113_584x584.jpeg",
+  /* imageUrl:
+    "https://dodopizza.azureedge.net/static/Img/Products/f035c7f46c0844069722f2bb3ee9f113_584x584.jpeg", */
   name: "---",
   types: [],
   sizes: [],

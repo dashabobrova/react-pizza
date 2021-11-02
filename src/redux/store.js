@@ -1,14 +1,21 @@
-import { combineReducers, createStore } from 'redux';
-import { filtersReducer } from './reducers/filters';
-import { pizzasReducer } from './reducers/pizzas';
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import { filtersReducer } from "./reducers/filters";
+import { pizzasReducer } from "./reducers/pizzas";
+import thunk from "redux-thunk";
+import { compose } from "redux";
+import { cartReducer } from "./reducers/cart";
 
-  const rootReducer = combineReducers({
-    filters: filtersReducer,
-    pizzas: pizzasReducer
-  });
-  
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const rootReducer = combineReducers({
+  filters: filtersReducer,
+  pizzas: pizzasReducer,
+  cart: cartReducer
+});
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 export default store;
-
