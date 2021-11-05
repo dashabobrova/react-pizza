@@ -2,7 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CartItem } from "../components/CartItem";
-import { clearCartAC, minusCartItemAC, plusCartItemAC, removeCartItemAC } from "../redux/reducers/cart";
+import {
+  clearCartAC,
+  minusCartItemAC,
+  plusCartItemAC,
+  removeCartItemAC,
+} from "../redux/reducers/cart";
 import emptyCartImg from "../scss/assets/img/empty-cart.png";
 
 export const Cart = () => {
@@ -29,12 +34,12 @@ export const Cart = () => {
   };
 
   const onPlusItem = (id) => {
-      dispatch(plusCartItemAC(id));
+    dispatch(plusCartItemAC(id));
   };
 
   const onMinusItem = (id) => {
     dispatch(minusCartItemAC(id));
-};
+  };
 
   return (
     <div className="container container--cart">
@@ -161,7 +166,9 @@ export const Cart = () => {
                   />
                 </svg>
 
-                <span>Вернуться назад</span>
+                <Link to="/" class="button button--black">
+                  <span>Вернуться назад</span>
+                </Link>
               </a>
               <div className="button pay-btn">
                 <span>Оплатить сейчас</span>
