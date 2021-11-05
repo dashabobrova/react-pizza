@@ -31,7 +31,7 @@ export const fetchPizzas = (sortBy, category) => (dispatch) => {
   /* fetch('http://localhost:3000/db.json').then((res) => res.json()).then(json => {setPizzas(json.pizzas)}); */
   axios
     .get(
-      `http://localhost:3001/pizzas?${
+      `/pizzas?${
         category !== null ? `category=${category}` : ''
       }&_sort=${sortBy.type}&_order=${sortBy.order}`
     )
